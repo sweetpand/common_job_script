@@ -49,11 +49,55 @@ def imb_driver(driver):
     		resume_zone.send_keys(line.decode('utf-8'))
 
 
-	#add linkedIn
+   # add linkedin
+    try:
+        driver.find_element_by_xpath("//label[contains(.,'LinkedIn')]").send_keys(JOB_APP['linkedin'])
+    except NoSuchElementException:
+        try:
+            driver.find_element_by_xpath("//label[contains(.,'Linkedin')]").send_keys(JOB_APP['linkedin'])
+        except NoSuchElementException:
+            pass
+
+    # add graduation year
+
+    try:
+    	driver.find_element_by_xpath("//select/option[text()='2018']").click()
+	except NoSuchElementException:
+		pass
+
+	# add university 
+	try:
+		driver.find_element_by_xpath("//select/option[text()='2018']").click()
+	except NoSuchElementException:
+		pass
+
+	# add degree
 
 	try:
-		driver.find_element_by_xpath("/label[conatains(.,'LinkedIn')]").send_keys(JOB_APP['linkedin'])
-	except NoSuchElementsException:
+		driver.find_element_by_xpath("//select/option[contains(., 'Bachelor')]").click()
+	except NoSuchElementException:
+		pass
+
+	# add major
+	try:
+		driver.find_element_by_xpath("//select/option[contains(.,'Computer Science')]").click()
+	except NoSuchElementException:
+		pass
+
+	# add website 
+	try:
+		driver.find_element_by_xpath("//label[contains(.,'website')]").send_keys(JOB_APP['website'])
+	except NoSuchElementException:
+		pass
+
+	# add work authorization
+
+	try:
+		driver.find_element_by_xpath("//select/option[contains(., 'any employer')]").click()
+	except NoSuchElementException:
+		pass 
+
+   	driver.find_element_by_id("submit_app").click()
 
 def level(driver):
 	driver.find_element_by_class_name('template-btn-submit').click()
