@@ -54,4 +54,59 @@ def imb_driver(driver):
 	try:
 		driver.find_element_by_xpath("/label[conatains(.,'LinkedIn')]").send_keys(JOB_APP['linkedin'])
 	except NoSuchElementsException:
-		
+
+def level(driver):
+	driver.find_element_by_class_name('template-btn-submit').click()
+
+	first_name = JOB_APP['first_name']
+	last_name = JOB_APP['last_name']
+	full_name = first_name + ' ' + last_name
+	driver.find_element_by_name('name').send_keys(full_name)
+	driver.find_element_by_name('email').send_keys(JOB_APP['email'])
+	driver.find_element_by_name('phone').send_keys(JOB_APP['phone'])
+	driver.find_element_by_name('org').send_keys(JOB_APP['org'])
+
+
+	driver.find_element_by_name('urls[LinkedIn]').send_keys(JOB_APP['linkedin'])
+	driver.find_element_by_name('url[Twitter]').send_keys(JOB_APP['twitter'])
+	try:
+	   driver.find_element_by_name('urls[Github]').send_keys(JOB_APP['github'])
+    except NoSuchElementsException:
+    	try:
+    		driver.find_element_by_name('urls[Github]').send_keys(JOB_APP['github'])
+		except NoSuchElementsException:
+			pass
+	driver.find_element_by_name('urls[Portfolio]').send_keys(JOB_APP['website'])
+
+
+	try: 
+		driver.find_element_by_class_name('application-university').click()
+		search = driver.find_element_by_xpath("//*[@type='search']")
+		search.send_keys(JOB_APP['university'])
+		search.send_keys(Keys.RETURN)
+	except NoSuchElementsException:
+		pass
+
+	try:
+		driver.find_element_by_class_name('application-droptowm').click()
+		search = driver.find_element_by_xpath("//select/option[text()='Glassdoor']").click()
+	except NoSuchElementsException:
+		pass
+
+	driver.find_element_by_name('resume').send_keys(os.getcwd()+"/CV_Zhama_Ryskulova")
+	driver.find_element_by_name('template-btn-submit').click()
+
+ if __name__ == '__main__':
+ 	driver = webdriver.Chrome(executable_path='/User/zham_rys/chromedriver')
+
+ 	for url in URLS:
+ 		driver.get(url)
+
+ 		if 'greenhouse' in url:
+ 			greenhouse(driver)
+
+		if 'level' in url:
+			level(driver)
+
+		time.sleep(1)
+	driver.close()		
