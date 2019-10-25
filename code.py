@@ -100,10 +100,10 @@ def level(driver):
  	driver = webdriver.Chrome(executable_path='/User/zham_rys/chromedriver')
 
  	for url in URLS:
- 		driver.get(url)
+		driver.get(url)
 
- 		if 'greenhouse' in url:
- 			greenhouse(driver)
+		if 'greenhouse' in url:
+			greenhouse(driver)
 
 		if 'level' in url:
 			level(driver)
